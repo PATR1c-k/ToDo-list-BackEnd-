@@ -16,7 +16,7 @@ app.get("/", function (req, res) {
         day: 'numeric'
     };
 
-    var day = today.toLocaleDateString("hi-IN", options);
+    var day = today.toLocaleDateString("us-GB", options);
 
     res.render("list", { Eday: day, newListItems: items });
 })
