@@ -5,25 +5,29 @@ const app = express();
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 
+var items = [];
 
 app.get("/", function (req, res) {
-
     var today = new Date();
-    var currentDay = today.getDay();
-    var day = "";
+    var options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    };
 
-    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    const d = weekdays.length;
-    for (let i = 0; i < d; i++) {
-        if (currentDay === i) {
-            day = weekdays[i];
-        }
-    }
+    var day = today.toLocaleDateString("hi-IN", options);
 
-    res.render("list", { Eday: day });
+    res.render("list", { Eday: day, newListItems: items });
+})
 
+app.post("/", function (req, res) {
+    var item = req.body.newItem;
+    items.push(item);
+
+    res.redirect("/");
 })
 
 app.listen(3300, function () {
-    console.log("Server started at port number 3300.");
+    console.log("LIstening at port number 3300.");
 })

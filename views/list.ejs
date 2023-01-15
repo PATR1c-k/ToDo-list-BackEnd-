@@ -5,19 +5,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day</title>
+    <title>ToDo List</title>
 </head>
 
 <body>
-    <% if(Eday==="Sunday" || Eday==="Saturday" ) {%>
-        <h1 style="color: rgb(197, 35, 62);">
-            <%= Eday %> ToDo List%>
-        </h1>
-        <% }else{ %>
-            <h1 style="color: rgb(26, 26, 241);">
-                <%= Eday %> ToDo List
-            </h1>
+    <h1>
+        <%= Eday %>
+    </h1>
+
+    <ul>
+        <% for (let i=0; i < newListItems.length; i++) { %>
+            <li>
+                <%= newListItems[i] %>
+            </li>
             <% } %>
+
+    </ul>
+
+    <form action="/" method="post">
+        <input type="text" name="newItem">
+        <button type="submmit" name="button">Add</button>
+    </form>
+
 </body>
 
 </html>
