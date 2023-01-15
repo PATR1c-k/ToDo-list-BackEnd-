@@ -1,24 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname + "/date.js");
 
 const app = express();
+
 app.set("view engine", "ejs");
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-var items = ["Buy Food", "Make Food", "Eat Food"];
-var workList = [];
+const items = ["Buy Food", "Make Food", "Eat Food"];
+const workList = [];
 
 app.get("/", function (req, res) {
-    var today = new Date();
-    var options = {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-    };
 
-    var day = today.toLocaleDateString("us-US", options);
+    let day = date.getDate();   //date.js custome module
 
     res.render("list", { listTitle: day, newListItems: items });
 })
@@ -45,8 +41,12 @@ app.post("/", function (req, res) {
         items.push(item);
         res.redirect("/");
     }
-
 });
+
+
+app.get("/about", function (req, res) {
+    res.render("about");
+})
 
 app.listen(3300, function () {
     console.log("LIstening at port number 3300.");
